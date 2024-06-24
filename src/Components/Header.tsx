@@ -76,7 +76,15 @@ const Input = styled(motion.input)`
   transform-origin: right center;
   //변화가 시작하는 위치
   position: absolute;
-  left: -150px;
+
+  right: 0px;
+  padding: 5px 10px;
+  padding-left: 40px;
+  z-index: -1;
+  color: white;
+  font-size: 16px;
+  background-color: transparent;
+  border: 1px solid ${(props) => props.theme.white.lighter};
 `;
 
 const logoVariants = {
