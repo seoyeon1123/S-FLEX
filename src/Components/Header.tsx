@@ -26,8 +26,8 @@ const Col = styled.div`
 `;
 
 const Logo = styled(motion.svg)`
-  margin-right: 50px;
-  width: 100px;
+  margin-right: 30px;
+  width: 120px;
   height: 30px;
   fill: ${(props) => props.theme.red};
   path {
