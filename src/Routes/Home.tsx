@@ -2,7 +2,7 @@ import { useQuery } from 'react-query';
 import { IGetMoviesResult, getMovies } from '../api';
 import styled from 'styled-components';
 import { makeImagePath } from '../utils';
-import { motion, AnimatePresence, delay } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 
 const Wrapper = styled.div`
@@ -67,6 +67,19 @@ const Box = styled(motion.div)<{ bgPhoto: string }>`
   }
 `;
 
+const Info = styled(motion.div)`
+  padding: 10px;
+  background-color: ${(props) => props.theme.black.lighter};
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+
+  h4 {
+    font-size: 14px;
+  }
+`;
+
 const rowVariants = {
   hidden: {
     x: window.outerWidth + 5,
@@ -85,7 +98,15 @@ const BoxVariants = {
   },
   hover: {
     scale: 1.3,
+    zIndex: 1000,
     y: -50,
+    transition: { type: 'tween', duration: 0.3, delay: 0.5 },
+  },
+};
+
+const infoVariants = {
+  hover: {
+    opacity: 1,
     transition: { type: 'tween', duration: 0.3, delay: 0.5 },
   },
 };
@@ -153,7 +174,11 @@ const Home = () => {
                         initial="normal"
                         key={movie.id}
                         bgPhoto={makeImagePath(movie.backdrop_path, 'w500')}
-                      />
+                      >
+                        <Info variants={infoVariants}>
+                          <h4>{movie.title}</h4>
+                        </Info>
+                      </Box>
                     ))}
                 </Row>
               </AnimatePresence>
