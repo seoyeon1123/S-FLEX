@@ -55,19 +55,7 @@ const Item = styled.li`
   }
 `;
 
-const logoVariants = {
-  nomal: {
-    fillOpacity: 0,
-  },
-  active: {
-    fillOpacity: [1, 0.5, 1],
-    transition: {
-      repeat: Infinity,
-    },
-  },
-};
-
-const Circle = styled.span`
+const Circle = styled(motion.span)`
   position: absolute;
   width: 5px;
   height: 5px;
@@ -95,6 +83,18 @@ const Input = styled(motion.input)`
   left: -150px;
 `;
 
+const LogoVariants = {
+  initial: {
+    fillOpacity: 1,
+  },
+  hover: {
+    fillOpacity: [0, 1, 0],
+    transition: {
+      repeat: Infinity,
+    },
+  },
+};
+
 const navVariants = {
   top: {
     backgroundColor: 'rgba(0,0,0,0)',
@@ -106,22 +106,12 @@ const navVariants = {
 
 const Header = () => {
   const [searchOpen, setSearchOpen] = useState(false);
-  const inputAnimation = useAnimation();
+  const homeMatch = useMatch('/');
+  const tvMatch = useMatch('/tv');
   const navAnimation = useAnimation();
-  const toggleSearch = () => {
-    if (searchOpen) {
-      inputAnimation.start({
-        scaleX: 0,
-      });
-    } else {
-      inputAnimation.start({
-        scaleX: 1,
-      });
-    }
-    setSearchOpen((prev) => !prev);
-  };
 
   const { scrollY } = useScroll();
+
   useMotionValueEvent(scrollY, 'change', () => {
     if (scrollY.get() > 80) {
       navAnimation.start('scroll');
@@ -129,16 +119,17 @@ const Header = () => {
       navAnimation.start('top');
     }
   });
-  const homeMatch = useMatch('/');
-  const tvMatch = useMatch('/tv');
+  const toggleSearch = () => {
+    setSearchOpen((prev) => !prev);
+  };
   return (
     <>
-      <Nav variants={navVariants} initial="top" animate={navAnimation}>
+      <Nav variants={navVariants} animate={navAnimation} initial="top">
         <Col>
           <Logo
-            variants={logoVariants}
-            whileHover="active"
-            initial="normal"
+            variants={LogoVariants}
+            initial="initial"
+            whileHover="hover"
             width="41.998"
             height="13.222"
             viewBox="0 0 41.998 13.222"
@@ -152,14 +143,12 @@ const Header = () => {
           <Items>
             <Item>
               <Link to="/">
-                Home
-                {homeMatch ? <Circle /> : null}
+                Home {homeMatch ? <Circle layoutId="circle" /> : null}
               </Link>
             </Item>
             <Item>
               <Link to="/tv">
-                Tv
-                {tvMatch ? <Circle /> : null}
+                Tv Shows {tvMatch ? <Circle layoutId="circle" /> : null}
               </Link>
             </Item>
           </Items>
@@ -180,11 +169,11 @@ const Header = () => {
                 clipRule="evenodd"
               ></path>
             </motion.svg>
+
             <Input
-              placeholder="Search for movie or tv show"
-              animate={inputAnimation}
-              initial={{ scaleX: 0 }}
+              animate={{ scaleX: searchOpen ? 1 : 0 }}
               transition={{ type: 'linear' }}
+              placeholder="Search for movie or tv show ..."
             />
           </Search>
         </Col>

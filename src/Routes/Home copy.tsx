@@ -2,12 +2,11 @@ import { useQuery } from 'react-query';
 import { IGetMoviesResult, getMovies } from '../api';
 import styled from 'styled-components';
 import { makeImagePath } from '../utils';
-import { motion, AnimatePresence, delay } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 
 const Wrapper = styled.div`
   background-color: black;
-  padding-bottom: 200px;
 `;
 
 const Loader = styled.div`
@@ -46,7 +45,7 @@ const Slider = styled.div`
 const Row = styled(motion.div)`
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  gap: 5px;
+  gap: 10px;
   position: absolute;
   width: 100%;
 `;
@@ -55,38 +54,40 @@ const Box = styled(motion.div)<{ bgPhoto: string }>`
   background-image: url(${(props) => props.bgPhoto});
   height: 200px;
   background-size: cover;
-  background-position: center center;
-  font-size: 55px;
+  background-position: center, center;
 
   &:first-child {
-    transform-origin: center left;
+    transform-origin: center center;
   }
-
   &:last-child {
-    transform-origin: center right;
+    transform-origin: center center;
   }
 `;
 
 const rowVariants = {
   hidden: {
-    x: window.outerWidth + 5,
+    x: window.outerWidth + 10,
   },
   visible: {
     x: 0,
   },
   exit: {
-    x: -window.outerWidth - 5,
+    x: -window.outerWidth - 10,
   },
 };
 
-const BoxVariants = {
+const boxVariants = {
   normal: {
     scale: 1,
   },
+
   hover: {
     scale: 1.3,
-    y: -50,
-    transition: { type: 'tween', duration: 0.3, delay: 0.5 },
+    transition: {
+      type: 'tween',
+      duration: 0.3,
+      delay: 0.5,
+    },
   },
 };
 
@@ -99,8 +100,7 @@ const Home = () => {
     if (data) {
       if (leaving) return;
       const totalMovies = data?.results.length - 1;
-      const maxIndex = Math.ceil(totalMovies / offset) - 1; //올림처리
-
+      const maxIndex = Math.ceil(totalMovies / offset) - 1;
       toggleLeaving();
       setIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
     }
@@ -109,7 +109,6 @@ const Home = () => {
   const toggleLeaving = () => {
     setLeaving((prev) => !prev);
   };
-
   const { data, isLoading } = useQuery<IGetMoviesResult>(
     ['movie', 'nowPlaying'],
     getMovies
@@ -129,11 +128,7 @@ const Home = () => {
               <Overview>{data?.results[0].overview}</Overview>
             </Banner>
             <Slider>
-              <AnimatePresence
-                initial={false}
-                //컴포넌트가 처음 mount될 때 initial를 false로 함
-                onExitComplete={toggleLeaving}
-              >
+              <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
                 <Row
                   variants={rowVariants}
                   initial="hidden"
@@ -147,12 +142,11 @@ const Home = () => {
                     .slice(offset * index, offset * index + offset)
                     .map((movie) => (
                       <Box
-                        transition={{ type: 'tween' }}
-                        variants={BoxVariants}
-                        whileHover="hover"
+                        variants={boxVariants}
                         initial="normal"
+                        whileHover="hover"
                         key={movie.id}
-                        bgPhoto={makeImagePath(movie.backdrop_path, 'w500')}
+                        bgPhoto={makeImagePath(movie.backdrop_path)}
                       />
                     ))}
                 </Row>
