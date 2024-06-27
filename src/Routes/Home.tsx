@@ -42,7 +42,7 @@ const Overview = styled.p`
 
 const Slider = styled.div`
   position: relative;
-  top: -100px;
+  top: -200px;
 `;
 
 const Row = styled(motion.div)`
@@ -50,7 +50,7 @@ const Row = styled(motion.div)`
   grid-template-columns: repeat(6, 1fr);
   gap: 5px;
   position: absolute;
-  width: 100%;
+  width: 100vw;
 `;
 
 const Box = styled(motion.div)<{ bgPhoto: string }>`
@@ -124,6 +124,11 @@ const BigOverview = styled.p`
   position: relative;
   top: -50px;
   color: ${(props) => props.theme.white.lighter};
+`;
+
+const Section = styled.h1`
+  margin: 20px 0;
+  font-size: 40px;
 `;
 
 const rowVariants = {
@@ -218,6 +223,7 @@ const Home = () => {
                 //컴포넌트가 처음 mount될 때 initial를 false로 함
                 onExitComplete={toggleLeaving}
               >
+                <Section>Now Playing</Section>
                 <Row
                   variants={rowVariants}
                   initial="hidden"
