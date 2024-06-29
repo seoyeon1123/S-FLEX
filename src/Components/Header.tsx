@@ -17,7 +17,7 @@ const Nav = styled(motion.nav)`
   width: 100%;
   top: 0;
   font-size: 14px;
-  padding: 20px 40px;
+  padding: 30px 0px;
   color: white;
 `;
 
@@ -70,9 +70,10 @@ const Circle = styled(motion.span)`
 const Search = styled.form`
   color: white;
   display: flex;
-  margin-right: 10px;
+  margin-right: 80px;
   align-items: center;
   position: relative;
+
   svg {
     height: 25px;
   }
