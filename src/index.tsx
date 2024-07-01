@@ -60,7 +60,7 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
   body {
-    margin : 0px 40px;
+    //margin : 0px 40px;
     font-family: "Hi Melody", sans-serif;
     font-weight: 400;
     font-style: normal;

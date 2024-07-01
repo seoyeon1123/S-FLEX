@@ -26,8 +26,17 @@ export interface ISearch {
 }
 
 export interface IGetSearchResult {
-  results: ISearch[]; //
+  results: ISearch[];
   page: number;
+}
+
+export interface IGenre {
+  id: number;
+  name: string;
+}
+
+export interface IGenreListResult {
+  genres: IGenre[];
 }
 
 export function getSearchs(keyword: string) {
@@ -45,5 +54,11 @@ export function getTvShows() {
 export function getVideos(movieId: string) {
   return fetch(
     `${BASE_PATH}/movie/${movieId}/videos?api_key=${API_KEY}&language=ko-KR`
+  ).then((response) => response.json());
+}
+
+export function getGenre(): Promise<IGenreListResult> {
+  return fetch(
+    `${BASE_PATH}/genre/movie/list?api_key=${API_KEY}&language=kr`
   ).then((response) => response.json());
 }

@@ -51,7 +51,7 @@ const PlayButton = styled.div`
 `;
 
 interface IVideoProps {
-  videos: IVideos[]; // IVideos는 실제 비디오 데이터 타입에 맞게 수정해야 합니다.
+  videos: IVideos[];
 }
 
 const Video = ({ videos }: IVideoProps) => {
@@ -59,14 +59,14 @@ const Video = ({ videos }: IVideoProps) => {
     window.open(`https://www.youtube.com/watch?v=${key}`, '_blank');
   };
 
+  const video = videos[0];
+
   return (
     <VideoContainer>
-      {videos.map((video) => (
-        <VideoBox key={video.id}>
-          <VideoTitle>{video.name}</VideoTitle>
-          <PlayButton onClick={() => playVideo(video.key)}>▶</PlayButton>
-        </VideoBox>
-      ))}
+      <VideoBox key={video.id}>
+        <VideoTitle>{video.name}</VideoTitle>
+        <PlayButton onClick={() => playVideo(video.key)}>▶</PlayButton>
+      </VideoBox>
     </VideoContainer>
   );
 };

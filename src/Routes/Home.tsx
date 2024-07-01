@@ -1,13 +1,11 @@
 import { useQuery } from 'react-query';
-import { getDistinctMovies, IGetMoviesResult } from '../MovieApi';
+import { getDistinctMovies } from '../MovieApi';
 import styled from 'styled-components';
 import { makeImagePath } from '../utils';
-import NowPlaying from '../Components/NowPlaying';
-import Upcoming from '../Components/Upcoming';
+import Movie from '../Components/Movie';
 
 const Wrapper = styled.div`
   background-color: black;
-  padding-bottom: 200px;
   overflow-x: hidden;
 `;
 
@@ -46,33 +44,29 @@ const Overview = styled.p`
 `;
 
 const Home = () => {
-  const { data, isLoading } = useQuery<{ nowPlaying: IGetMoviesResult }>(
+  const { data, isLoading } = useQuery(
     ['movies', 'distinct'],
     getDistinctMovies
   );
-
-  const nowPlayingData = data?.nowPlaying;
 
   return (
     <>
       <Wrapper>
         {isLoading ? (
           <Loader>Loading...</Loader>
-        ) : nowPlayingData ? ( // data가 존재하는 경우
+        ) : (
+          // data가 존재하는 경우
           <>
             <Banner
-              bgPhoto={makeImagePath(
-                nowPlayingData.results[0]?.backdrop_path || ''
-              )}
+              bgPhoto={makeImagePath(data?.nowPlaying[0].backdrop_path || '')}
             >
-              <Title>{nowPlayingData.results[0]?.title}</Title>
-              <Overview>{nowPlayingData.results[0]?.overview}</Overview>
+              <Title>{data?.nowPlaying[0].title}</Title>
+              <Overview>{data?.nowPlaying[0].overview}</Overview>
             </Banner>
 
-            <NowPlaying data={nowPlayingData} />
-            <Upcoming />
+            <Movie />
           </>
-        ) : null}{' '}
+        )}
       </Wrapper>
     </>
   );

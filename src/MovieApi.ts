@@ -1,5 +1,3 @@
-import { promises } from 'dns';
-
 const API_KEY = '5f90a5ae964c1e681e56c236101a5b46';
 const BASE_PATH = 'https://api.themoviedb.org/3';
 
@@ -9,6 +7,9 @@ export interface IMovie {
   poster_path: string;
   title: string;
   overview: string;
+  vote_average: string;
+  release_date: string;
+  genre_ids: [];
 }
 
 export interface IGetMoviesResult {
@@ -20,6 +21,23 @@ export interface IGetMoviesResult {
   total_pages: number;
   total_results: number;
   results: IMovie[];
+}
+
+export interface IGetMovieDetail {
+  runtime: string;
+  tagline: string;
+  genres: IDetail[];
+}
+
+export interface IDetail {
+  id: number;
+  name: string;
+}
+
+export function getMovieDetail(movieId: string) {
+  return fetch(
+    `${BASE_PATH}/movie/${movieId}?api_key=${API_KEY}&language=ko-KR`
+  ).then((response) => response.json());
 }
 
 // getMovies 함수 정의
@@ -44,12 +62,24 @@ export async function getUpcomingMovies(): Promise<IGetMoviesResult> {
   return response.json();
 }
 
+export async function getTopRatedMovies(): Promise<IGetMoviesResult> {
+  const response = await fetch(
+    `${BASE_PATH}/movie/top_rated?api_key=${API_KEY}&language=ko-KR`
+  );
+  if (!response.ok) {
+    throw new Error('Top Rated 영화를 가져오지 못했습니다.');
+  }
+  return response.json();
+}
+
 export async function getDistinctMovies(): Promise<{
-  nowPlaying: IGetMoviesResult;
+  nowPlaying: IMovie[];
   upcoming: IMovie[];
+  topRanked: IMovie[];
 }> {
   const nowPlayingResult = await getMovies();
   const upcomingResult = await getUpcomingMovies();
+  const topRankedResult = await getTopRatedMovies();
 
   // 현재 상영 중인 영화 ID 목록
   const nowPlayingIds = new Set(
@@ -57,12 +87,20 @@ export async function getDistinctMovies(): Promise<{
   );
 
   // 개봉 예정 영화 중 현재 상영 중이지 않은 영화 필터링
-  const UpcomingMovies = upcomingResult.results.filter(
+  const upcomingMovies = upcomingResult.results.filter(
     (movie) => !nowPlayingIds.has(movie.id)
   );
 
+  // Top Rated 영화 중 현재 상영 중이거나 개봉 예정이 아닌 영화 필터링
+  const topRankedMovies = topRankedResult.results.filter(
+    (movie) =>
+      !nowPlayingIds.has(movie.id) &&
+      !upcomingMovies.some((upcomingMovie) => upcomingMovie.id === movie.id)
+  );
+
   return {
-    nowPlaying: nowPlayingResult,
-    upcoming: UpcomingMovies,
+    nowPlaying: nowPlayingResult.results,
+    upcoming: upcomingMovies,
+    topRanked: topRankedMovies,
   };
 }
