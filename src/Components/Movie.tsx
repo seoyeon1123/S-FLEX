@@ -100,9 +100,10 @@ const Detail = styled.div`
 const GenreTitle = styled.h3`
   font-size: 15px;
   border: 1px solid ${(props) => props.theme.black.darker};
-  border-radius: 20px;
+  border-radius: 10px;
   padding: 5px 10px;
   margin-right: 5px;
+  margin-bottom: 5px;
   display: inline-block;
   background-color: ${(props) => props.theme.black.veryDark};
 `;
@@ -118,17 +119,20 @@ const ExplanationSub = styled.div`
 `;
 
 const RunTime = styled.h4`
-  font-size: 15px;
-  margin-top: 10px;
+  color: ${(props) => props.theme.white.lighter};
+  position: relative;
+  padding: 20px;
+  top: -50px;
 `;
 
 const TagLine = styled.h3`
-  font-size: 30px;
-  color: ${(props) => props.theme.red};
+  font-size: 15px;
+  color: ${(props) => props.theme.white.lighter};
   position: relative;
-  top: 130px;
-  margin: 20px 10px;
-  text-align: center;
+  margin-top: 10px;
+  text-align: start;
+  background-color: ${(props) => props.theme.black.veryDark};
+  width: 180px;
 `;
 
 const Movie = () => {
@@ -171,6 +175,12 @@ const Movie = () => {
     data[category as keyof typeof data]?.find(
       (movie: IMovie) => movie.id + '' === movieId
     );
+
+  const formatRuntime = (runtime: number) => {
+    const hours = Math.floor(runtime / 60);
+    const minutes = runtime % 60;
+    return `${hours}시간 ${minutes}분`;
+  };
 
   return (
     <Container>
@@ -228,6 +238,9 @@ const Movie = () => {
                     ' ' +
                     clickedMovie.release_date.slice(5, 7)}
                 </BigRelease>
+                {movieDetail && (
+                  <RunTime> {formatRuntime(movieDetail.runtime)}</RunTime>
+                )}
                 <BigVoteAverage>
                   ⭐️ {Number(clickedMovie.vote_average).toFixed(2)}
                 </BigVoteAverage>
@@ -236,17 +249,15 @@ const Movie = () => {
                 <BigOverview>{clickedMovie.overview}</BigOverview>
                 {movieDetail && (
                   <Detail>
-                    장르 :
                     {movieDetail.genres.map((genre) => (
-                      <GenreTitle key={genre.id}> {genre.name}</GenreTitle>
+                      <GenreTitle>{genre.name}</GenreTitle>
                     ))}
-                    <RunTime>RunTime : {movieDetail.runtime} </RunTime>
+                    {movieDetail.tagline && (
+                      <TagLine> : {movieDetail.tagline}</TagLine>
+                    )}
                   </Detail>
                 )}
               </ExplanationSub>
-              {movieDetail && movieDetail.tagline && (
-                <TagLine>{movieDetail.tagline}</TagLine>
-              )}
             </BigMovie>
           </>
         ) : null}

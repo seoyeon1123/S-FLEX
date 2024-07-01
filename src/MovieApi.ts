@@ -24,7 +24,7 @@ export interface IGetMoviesResult {
 }
 
 export interface IGetMovieDetail {
-  runtime: string;
+  runtime: number;
   tagline: string;
   genres: IDetail[];
 }
