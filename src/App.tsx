@@ -7,7 +7,7 @@ import Header from './Components/Header';
 const App = () => {
   return (
     <>
-      <BrowserRouter>
+      <BrowserRouter basename="/S-FLEX">
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
