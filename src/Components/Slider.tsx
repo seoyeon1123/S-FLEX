@@ -85,15 +85,15 @@ const Button = styled.button`
 `;
 
 const rowVariants = {
-  hidden: {
-    x: window.outerWidth + 5,
-  },
+  hidden: (direction: boolean) => ({
+    x: direction ? window.outerWidth + 5 : -window.outerWidth - 5,
+  }),
   visible: {
     x: 0,
   },
-  exit: {
-    x: -window.outerWidth - 5,
-  },
+  exit: (direction: boolean) => ({
+    x: direction ? -window.outerWidth - 5 : window.outerWidth + 5,
+  }),
 };
 
 const BoxVariants = {
@@ -127,13 +127,14 @@ const SliderComponent = ({ title, movies, category }: SliderComponentProps) => {
   const navigate = useNavigate();
   const [index, setIndex] = useState(0);
   const [leaving, setLeaving] = useState(false);
-
+  const [direction, setDirection] = useState(true);
   const increaseIndex = () => {
     if (movies) {
       if (leaving) return;
       const totalMovies = movies.length - 1;
       const maxIndex = Math.ceil(totalMovies / offset) - 1;
 
+      setDirection(true);
       toggleLeaving();
       setIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
     }
@@ -145,6 +146,7 @@ const SliderComponent = ({ title, movies, category }: SliderComponentProps) => {
       const totalMovies = movies.length - 1;
       const maxIndex = Math.ceil(totalMovies / offset) - 1;
 
+      setDirection(false);
       toggleLeaving();
       setIndex((prev) => (prev === 0 ? maxIndex : prev - 1));
     }
@@ -157,6 +159,7 @@ const SliderComponent = ({ title, movies, category }: SliderComponentProps) => {
   const onBoxClicked = async (movieId: number) => {
     navigate(`/movies/${category}/${movieId}`);
   };
+
   return (
     <>
       <TitleArea>
@@ -167,13 +170,18 @@ const SliderComponent = ({ title, movies, category }: SliderComponentProps) => {
         </ButtonWrapper>
       </TitleArea>
       <Slider>
-        <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
+        <AnimatePresence
+          initial={false}
+          custom={direction}
+          onExitComplete={toggleLeaving}
+        >
           <Row
             variants={rowVariants}
             initial="hidden"
             animate="visible"
             exit="exit"
             key={index}
+            custom={direction} // Pass the direction to variants
             transition={{ type: 'tween', duration: 1 }}
           >
             {movies
