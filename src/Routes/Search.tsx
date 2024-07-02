@@ -7,7 +7,7 @@ import {
   IGetSearchResult,
   IGetVideosResult,
   getVideos,
-} from '../api';
+} from '../Api/Api';
 import { makeImagePath } from '../utils';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';

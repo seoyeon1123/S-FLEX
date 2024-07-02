@@ -1,9 +1,9 @@
-import { IMovie } from '../MovieApi';
 import styled from 'styled-components';
-import { makeImagePath } from '../utils';
+import { makeImagePath } from '../../utils';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ITv } from '../../Api/TvApi';
 
 const Slider = styled.div`
   position: relative;
@@ -119,19 +119,20 @@ const offset = 6;
 
 interface SliderComponentProps {
   title: string;
-  movies: IMovie[];
+  tvs: ITv[];
   category: string;
 }
 
-const SliderComponent = ({ title, movies, category }: SliderComponentProps) => {
+const SliderTv = ({ title, tvs, category }: SliderComponentProps) => {
   const navigate = useNavigate();
   const [index, setIndex] = useState(0);
   const [leaving, setLeaving] = useState(false);
   const [direction, setDirection] = useState(true);
+
   const increaseIndex = () => {
-    if (movies) {
+    if (tvs) {
       if (leaving) return;
-      const totalMovies = movies.length - 1;
+      const totalMovies = tvs.length - 1;
       const maxIndex = Math.ceil(totalMovies / offset) - 1;
 
       setDirection(true);
@@ -141,9 +142,9 @@ const SliderComponent = ({ title, movies, category }: SliderComponentProps) => {
   };
 
   const decreaseIndex = () => {
-    if (movies) {
+    if (tvs) {
       if (leaving) return;
-      const totalMovies = movies.length - 1;
+      const totalMovies = tvs.length - 1;
       const maxIndex = Math.ceil(totalMovies / offset) - 1;
 
       setDirection(false);
@@ -156,8 +157,8 @@ const SliderComponent = ({ title, movies, category }: SliderComponentProps) => {
     setLeaving((prev) => !prev);
   };
 
-  const onBoxClicked = async (movieId: number) => {
-    navigate(`/movies/${category}/${movieId}`);
+  const onBoxClicked = async (tvId: number) => {
+    navigate(`/tv/${category}/${tvId}`);
   };
 
   return (
@@ -184,24 +185,22 @@ const SliderComponent = ({ title, movies, category }: SliderComponentProps) => {
             custom={direction} // Pass the direction to variants
             transition={{ type: 'tween', duration: 1 }}
           >
-            {movies
-              .slice(offset * index, offset * index + offset)
-              .map((movie) => (
-                <Box
-                  layoutId={movie.id + ''}
-                  onClick={() => onBoxClicked(movie.id)}
-                  transition={{ type: 'tween' }}
-                  variants={BoxVariants}
-                  whileHover="hover"
-                  initial="normal"
-                  key={movie.id}
-                  bgPhoto={makeImagePath(movie.backdrop_path, 'w500')}
-                >
-                  <Info variants={infoVariants}>
-                    <h4>{movie.title}</h4>
-                  </Info>
-                </Box>
-              ))}
+            {tvs.slice(offset * index, offset * index + offset).map((tv) => (
+              <Box
+                layoutId={tv.id + ''}
+                onClick={() => onBoxClicked(tv.id)}
+                transition={{ type: 'tween' }}
+                variants={BoxVariants}
+                whileHover="hover"
+                initial="normal"
+                key={tv.id}
+                bgPhoto={makeImagePath(tv.backdrop_path, 'w500')}
+              >
+                <Info variants={infoVariants}>
+                  <h4>{tv.name}</h4>
+                </Info>
+              </Box>
+            ))}
           </Row>
         </AnimatePresence>
       </Slider>
@@ -209,4 +208,4 @@ const SliderComponent = ({ title, movies, category }: SliderComponentProps) => {
   );
 };
 
-export default SliderComponent;
+export default SliderTv;

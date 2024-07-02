@@ -10,14 +10,17 @@ const App = () => {
       <BrowserRouter>
         <Header />
         <Routes>
-          <Route path="/" element={<Home />}></Route>
+          <Route path="/" element={<Home />} />
           <Route path="/movies/:movieId" element={<Home />} />
           <Route path="/movies/:category/:movieId" element={<Home />} />
-          <Route path="/tv" element={<TV />}></Route>
+
+          <Route path="/tv" element={<TV />} />
+          <Route path="/tv/:category/:tvId" element={<TV />} />
+
           <Route path="/search" element={<Search />} />
-          <Route path="/search/movies/:movieId" element={<Search />}></Route>
-          <Route path="/search/tv/:tvId" element={<Search />}></Route>
-          <Route path="/search?keyword=:keyword" element={<Search />}></Route>
+          <Route path="/search/movies/:movieId" element={<Search />} />
+          <Route path="/search/tv/:tvId" element={<Search />} />
+          <Route path="/search?keyword=:keyword" element={<Search />} />
         </Routes>
       </BrowserRouter>
     </>

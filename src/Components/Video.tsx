@@ -1,7 +1,7 @@
 // Video.tsx
 import React from 'react';
 import styled from 'styled-components';
-import { IVideos } from '../api'; // IVideos는 실제 비디오 데이터 타입에 맞게 수정해야 합니다.
+import { IVideos } from '../Api/Api'; // IVideos는 실제 비디오 데이터 타입에 맞게 수정해야 합니다.
 
 const VideoContainer = styled.div`
   display: flex;

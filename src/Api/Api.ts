@@ -62,3 +62,9 @@ export function getGenre(): Promise<IGenreListResult> {
     `${BASE_PATH}/genre/movie/list?api_key=${API_KEY}&language=kr`
   ).then((response) => response.json());
 }
+
+export function getTvVideos(tvId: string) {
+  return fetch(
+    `${BASE_PATH}/tv/${tvId}/videos?api_key=${API_KEY}&language=ko-KR`
+  ).then((response) => response.json());
+}

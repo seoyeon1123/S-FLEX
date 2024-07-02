@@ -4,16 +4,16 @@ import {
   IGetMovieDetail,
   getDistinctMovies,
   getMovieDetail,
-} from '../MovieApi';
+} from '../../Api/MovieApi';
 import SliderComponent from './Slider';
 import styled from 'styled-components';
 import { motion, AnimatePresence, useScroll } from 'framer-motion';
 import { useNavigate, useMatch } from 'react-router-dom';
-import { IMovie } from '../MovieApi';
-import Video from './Video';
-import { IGetVideosResult, getVideos } from '../api';
-import { makeImagePath } from '../utils';
-import { nowPlayingFont, topRankedFont, upcomingFont } from './CategoryFont';
+import { IMovie } from '../../Api/MovieApi';
+import Video from '../Video';
+import { IGetVideosResult, getVideos } from '../../Api/Api';
+import { makeImagePath } from '../../utils';
+import { nowPlayingFont, topRankedFont, upcomingFont } from '../CategoryFont';
 
 const Container = styled.div`
   display: flex;
