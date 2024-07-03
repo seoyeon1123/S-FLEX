@@ -35,6 +35,10 @@ export interface IGetTvDetail {
   tagline: string;
   type: string;
   vote_average: number;
+  id: number;
+  backdrop_path: string;
+  name: string;
+  overview: string;
 }
 
 export interface IDetailTv {

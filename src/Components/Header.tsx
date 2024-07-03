@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+// Header.js
+import React, { useState } from 'react';
 import { Link, useMatch, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import {
@@ -9,6 +10,7 @@ import {
 } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { SFlexLogo } from './CategoryFont';
+import DropdownMenu from '../Routes/DropdownMenu'; // Import the DropdownMenu
 
 const Nav = styled(motion.nav)`
   display: flex;
@@ -40,6 +42,7 @@ const Logo = styled(motion.svg)`
 const Items = styled.ul`
   display: flex;
   align-items: center;
+  position: relative;
 `;
 
 const Item = styled.li`
@@ -53,6 +56,7 @@ const Item = styled.li`
 
   &:hover {
     color: ${(props) => props.theme.white.lighter};
+    cursor: pointer;
   }
 `;
 
@@ -82,9 +86,7 @@ const Search = styled.form`
 
 const Input = styled(motion.input)`
   transform-origin: right center;
-  //변화가 시작하는 위치
   position: absolute;
-
   right: 0px;
   padding: 8px 15px;
   padding-left: 40px;
@@ -127,16 +129,19 @@ interface IForm {
 
 const Header = () => {
   const [searchOpen, setSearchOpen] = useState(false);
+  const [dropdownVisible, setDropdownVisible] = useState(false);
   const { scrollY } = useScroll();
   const navAnimation = useAnimation();
   const navigate = useNavigate();
   const { register, handleSubmit, setValue } = useForm<IForm>();
   const onValid = (data: IForm) => {
     navigate(`/search?keyword=${data.keyword}`);
-    setValue('keyword', ''); // Clear only the 'keyword' field
+    setValue('keyword', '');
   };
   const homeMatch = useMatch('/');
   const tvMatch = useMatch('/tv');
+  const genreMovieMatch = useMatch('/genre/movies');
+  const genreTvShowMatch = useMatch('/genre/tv');
 
   const toggleSearch = () => {
     setSearchOpen((prev) => !prev);
@@ -153,6 +158,9 @@ const Header = () => {
   const logoClick = () => {
     navigate('/');
   };
+
+  const handleMouseEnter = () => setDropdownVisible(true);
+  const handleMouseLeave = () => setDropdownVisible(false);
 
   return (
     <>
@@ -178,8 +186,22 @@ const Header = () => {
             </Item>
             <Item>
               <Link to="/tv">
-                Tv Shows {tvMatch ? <Circle layoutId="circle" /> : null}
+                TV Shows {tvMatch ? <Circle layoutId="circle" /> : null}
               </Link>
+            </Item>
+            <Item
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
+              Genre{' '}
+              {genreMovieMatch || genreTvShowMatch ? (
+                <Circle layoutId="circle" />
+              ) : null}
+              <DropdownMenu
+                isVisible={dropdownVisible}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              />
             </Item>
           </Items>
         </Col>
