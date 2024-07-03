@@ -7,6 +7,7 @@ import Movie from '../Components/Movie/Movie';
 const Wrapper = styled.div`
   background-color: black;
   overflow-x: hidden;
+  height: 100%;
 `;
 
 const Loader = styled.div`

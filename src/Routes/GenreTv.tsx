@@ -14,8 +14,17 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100vw;
+  margin-bottom: 100px;
   height: 100vh;
   overflow: hidden;
+`;
+
+const Loader = styled.div`
+  height: 20vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 `;
 
 const GenreContainer = styled.div`
@@ -23,7 +32,8 @@ const GenreContainer = styled.div`
   flex-direction: row;
   width: 70%;
   height: 40vh;
-  margin: 30px auto 0; /* Adds top margin and centers horizontally */
+  padding-top: 100px;
+  margin: 0 auto;
   align-items: center;
   text-align: center;
   flex-wrap: wrap;
@@ -33,7 +43,7 @@ const GenreContainer = styled.div`
 
 const GenreTitle = styled(motion.h1)`
   font-size: 30px;
-  margin: 100px 0px 50px 0px;
+  margin: 0px 0px 50px 0px;
 `;
 
 const GenreList = styled.div`
@@ -71,7 +81,7 @@ const GenreTv = () => {
 
   const handleGenreSelection = (genreId: number, genreName: string) => {
     setSelectGenreId(genreId);
-    setSelectedGenre(genreName); // 선택한 장르의 이름 설정
+    setSelectedGenre(genreName);
   };
 
   const handleMovieClick = (tvId: number) => {
@@ -82,24 +92,28 @@ const GenreTv = () => {
     <>
       <AnimatePresence>
         <Container>
-          <GenreContainer>
-            <GenreTitle>어떤 세계에 몰입하고 싶으세요?</GenreTitle>
-            <GenreList>
-              {genreData?.genres.map((genre) => (
-                <GenreButton
-                  key={genre.id}
-                  onClick={() => handleGenreSelection(genre.id, genre.name)}
-                >
-                  # {genre.name}
-                </GenreButton>
-              ))}
-            </GenreList>
-          </GenreContainer>
+          {genresLoading ? (
+            <Loader>Loading...</Loader>
+          ) : (
+            <GenreContainer>
+              <GenreTitle>어떤 세계에 몰입하고 싶으세요?</GenreTitle>
+              <GenreList>
+                {genreData?.genres.map((genre) => (
+                  <GenreButton
+                    key={genre.id}
+                    onClick={() => handleGenreSelection(genre.id, genre.name)}
+                  >
+                    # {genre.name}
+                  </GenreButton>
+                ))}
+              </GenreList>
+            </GenreContainer>
+          )}
 
           {selectGenreId ? (
             <SliderGenreTv
               onMovieClick={handleMovieClick}
-              genre={selectedGenre + ''}
+              genre={selectedGenre || ''}
               tvs={tvData?.results || []}
             />
           ) : null}

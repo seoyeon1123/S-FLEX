@@ -9,7 +9,7 @@ import GenreBigTv from './GenreBigTv';
 const Slider = styled(motion.div)`
   position: relative;
   width: 100vw;
-  margin-bottom: 100px;
+  margin-bottom: 200px;
   z-index: 1;
 `;
 

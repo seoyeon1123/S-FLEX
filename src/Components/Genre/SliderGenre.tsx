@@ -3,14 +3,13 @@ import { useMatch, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 import { IGenreMovie } from '../../Api/GenreApi';
-import GenreBigMovie from './GenreBigMovie'; // Assuming GenreBigMovie is correctly imported
+import GenreBigMovie from './GenreBigMovie';
 import { makeImagePath } from '../../utils';
-import Video from '../Video';
 
 const Slider = styled(motion.div)`
   position: relative;
   width: 100vw;
-  margin-bottom: 100px;
+  margin-bottom: 200px;
   z-index: 1;
 `;
 

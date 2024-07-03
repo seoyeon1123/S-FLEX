@@ -6,12 +6,15 @@ import { faHome } from '@fortawesome/free-solid-svg-icons';
 import { SFlexLogo } from './CategoryFont';
 
 const Container = styled.div`
-  margin: 0px 200px 50px 200px;
+  position: relative;
+  margin: 10px 200px 50px 200px;
   align-items: center;
   display: flex;
   flex-direction: row;
   text-align: center;
   justify-content: space-between;
+  overflow-x: hidden;
+  overflow-y: hidden;
 `;
 const VerticalLine = styled.div`
   height: 80px; /* 세로 선의 높이 설정 */
