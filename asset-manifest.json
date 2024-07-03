@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/S-FLEX/static/js/main.139c6aa2.js",
+    "main.js": "/S-FLEX/static/js/main.b11541b0.js",
     "index.html": "/S-FLEX/index.html",
-    "main.139c6aa2.js.map": "/S-FLEX/static/js/main.139c6aa2.js.map"
+    "main.b11541b0.js.map": "/S-FLEX/static/js/main.b11541b0.js.map"
   },
   "entrypoints": [
-    "static/js/main.139c6aa2.js"
+    "static/js/main.b11541b0.js"
   ]
 }
