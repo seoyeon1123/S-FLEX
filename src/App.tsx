@@ -5,7 +5,7 @@ import Search from './Routes/Search';
 import Header from './Components/Header';
 import GenreMovie from './Routes/GenreMovie';
 import GenreTv from './Routes/GenreTv';
-import Footer from './Components/footer';
+import Footer from './Components/Footer';
 
 const App = () => {
   return (

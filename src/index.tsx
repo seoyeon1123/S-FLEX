@@ -6,8 +6,9 @@ import { createGlobalStyle } from 'styled-components';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './theme';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import MainLoading from './Components/Loading/MainLoading';
 
-const GlobalStyle = createGlobalStyle`
+export const GlobalStyle = createGlobalStyle`
  @import url('https://fonts.googleapis.com/css2?family=Hi+Melody&display=swap');
   html, body, div, span, applet, object, iframe,
   h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -86,7 +87,9 @@ root.render(
       <QueryClientProvider client={client}>
         <ThemeProvider theme={theme}>
           <GlobalStyle />
-          <App />
+          <MainLoading>
+            <App />
+          </MainLoading>
         </ThemeProvider>
       </QueryClientProvider>
     </RecoilRoot>

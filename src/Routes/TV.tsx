@@ -3,6 +3,7 @@ import { getDistinctTvs } from '../Api/TvApi';
 import styled from 'styled-components';
 import { makeImagePath } from '../utils';
 import TvComponent from '../Components/Tv/TvComponent';
+import Loading from '../Components/Loading/Loading';
 
 const Wrapper = styled.div`
   background-color: black;
@@ -49,7 +50,9 @@ const TV = () => {
     <>
       <Wrapper>
         {isLoading ? (
-          <Loader> Loading... </Loader>
+          <Loader>
+            <Loading />
+          </Loader>
         ) : (
           <>
             <Banner

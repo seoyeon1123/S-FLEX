@@ -1,10 +1,10 @@
 import { useQuery } from 'react-query';
 import { useMatch, useNavigate } from 'react-router-dom';
 import { IDetail, getMovieDetail } from '../../Api/MovieApi';
-import { IGetVideosResult } from '../../Api/Api';
+import { IGetVideosResult, getVideos } from '../../Api/Api';
 import styled from 'styled-components';
 import { motion, AnimatePresence, useScroll } from 'framer-motion';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Video from '../Video';
 import { makeImagePath } from '../../utils';
 import SliderGenre from './SliderGenre';
@@ -151,6 +151,21 @@ const GenreBigMovie = ({ movieId, layoutId }: IGenreBigMovieProps) => {
   );
 
   const [videoData, setVideoData] = useState<IGetVideosResult>();
+
+  useEffect(() => {
+    const fetchVideoData = async () => {
+      if (movieId) {
+        try {
+          const videoData = await getVideos(movieId + '');
+          setVideoData(videoData);
+        } catch (error) {
+          console.error('Error fetching video data:', error);
+        }
+      }
+    };
+
+    fetchVideoData();
+  }, [movieId]);
 
   const clickedMovie = movieId && movieDetail && movieDetail.id === movieId;
 

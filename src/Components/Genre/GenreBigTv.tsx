@@ -1,9 +1,9 @@
 import { useQuery } from 'react-query';
 import { useMatch, useNavigate } from 'react-router-dom';
-import { IGetVideosResult } from '../../Api/Api';
+import { IGetVideosResult, getTvVideos } from '../../Api/Api';
 import styled from 'styled-components';
 import { motion, AnimatePresence, useScroll } from 'framer-motion';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Video from '../Video';
 import { makeImagePath } from '../../utils';
 import { IGetTvDetail, getTvDetail } from '../../Api/TvApi';
@@ -135,6 +135,16 @@ const GenreBigTv = ({ tvId, layoutId }: IGenreBigMovieProps) => {
   );
 
   const [videoData, setVideoData] = useState<IGetVideosResult>();
+
+  useEffect(() => {
+    const fetchVideoData = async () => {
+      if (tvId) {
+        const videoData = await getTvVideos(tvId + '');
+        setVideoData(videoData);
+      }
+    };
+    fetchVideoData();
+  }, [tvId]);
 
   const clickedMovie = tvId && tvDetail && tvDetail.id === tvId;
 

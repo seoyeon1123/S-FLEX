@@ -3,6 +3,7 @@ import { getDistinctMovies } from '../Api/MovieApi';
 import styled from 'styled-components';
 import { makeImagePath } from '../utils';
 import Movie from '../Components/Movie/Movie';
+import Loading from '../Components/Loading/Loading';
 
 const Wrapper = styled.div`
   background-color: black;
@@ -54,9 +55,8 @@ const Home = () => {
     <>
       <Wrapper>
         {isLoading ? (
-          <Loader>Loading...</Loader>
+          <Loading />
         ) : (
-          // data가 존재하는 경우
           <>
             <Banner
               bgPhoto={makeImagePath(data?.nowPlaying[0].backdrop_path || '')}
