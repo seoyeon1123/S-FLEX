@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub } from '@fortawesome/free-brands-svg-icons'; // faGithub 아이콘 import
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 import { SFlexLogo } from './CategoryFont';
+import { useLocation } from 'react-router-dom';
 
 const Container = styled.div`
   position: relative;
@@ -62,6 +63,14 @@ const LinkIcon = styled.div`
 `;
 
 const Footer = () => {
+  const location = useLocation();
+  if (
+    location.pathname === '/signup' ||
+    location.pathname === '/' ||
+    location.pathname === '/login'
+  ) {
+    return null;
+  }
   return (
     <Container>
       <Logo width="50" height="15" viewBox="0 0 41.998 13.222">

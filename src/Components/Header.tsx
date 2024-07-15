@@ -1,6 +1,6 @@
 // Header.js
 import React, { useState } from 'react';
-import { Link, useMatch, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useMatch, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import {
   motion,
@@ -11,6 +11,7 @@ import {
 import { useForm } from 'react-hook-form';
 import { SFlexLogo } from './CategoryFont';
 import DropdownMenu from '../Routes/DropdownMenu'; // Import the DropdownMenu
+import { isLoggedIn, logout } from 'utils/authUtils';
 
 const Nav = styled(motion.nav)`
   display: flex;
@@ -138,13 +139,18 @@ const Header = () => {
     navigate(`/search?keyword=${data.keyword}`);
     setValue('keyword', '');
   };
-  const homeMatch = useMatch('/');
+  const homeMatch = useMatch('/movies');
   const tvMatch = useMatch('/tv');
   const genreMovieMatch = useMatch('/genre/movies');
   const genreTvShowMatch = useMatch('/genre/tv');
 
   const toggleSearch = () => {
     setSearchOpen((prev) => !prev);
+  };
+
+  const handleLogout = () => {
+    logout(); // 로그아웃 함수 호출
+    navigate('/');
   };
 
   useMotionValueEvent(scrollY, 'change', () => {
@@ -161,6 +167,15 @@ const Header = () => {
 
   const handleMouseEnter = () => setDropdownVisible(true);
   const handleMouseLeave = () => setDropdownVisible(false);
+
+  const location = useLocation();
+  if (
+    location.pathname === '/signup' ||
+    location.pathname === '/' ||
+    location.pathname === '/login'
+  ) {
+    return null;
+  }
 
   return (
     <>
@@ -180,7 +195,7 @@ const Header = () => {
           </Logo>
           <Items>
             <Item>
-              <Link to="/">
+              <Link to="/movies">
                 Home {homeMatch ? <Circle layoutId="circle" /> : null}
               </Link>
             </Item>
@@ -231,6 +246,7 @@ const Header = () => {
               transition={{ type: 'linear' }}
             />
           </Search>
+          {isLoggedIn() && <button onClick={handleLogout}>Logout</button>}
         </Col>
       </Nav>
     </>

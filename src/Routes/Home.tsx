@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { makeImagePath } from '../utils';
 import Movie from '../Components/Movie/Movie';
 import Loading from '../Components/Loading/Loading';
+import { useParams } from 'react-router-dom';
 
 const Wrapper = styled.div`
   background-color: black;
@@ -46,6 +47,7 @@ const Overview = styled.p`
 `;
 
 const Home = () => {
+  const { id } = useParams<{ id: string }>();
   const { data, isLoading } = useQuery(
     ['movies', 'distinct'],
     getDistinctMovies
