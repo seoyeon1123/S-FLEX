@@ -9,36 +9,41 @@ import Footer from './Components/Footer';
 import PrivateRoute from 'utils/PrivateRoute';
 import Login from 'Routes/login';
 import Signup from 'Routes/signup';
+import { ProfileProvider } from 'Components/ProfileContext';
+import Profil from 'Components/profil';
 
 const App = () => {
   return (
     <>
       <BrowserRouter basename="S-FLEX">
-        <Header />
-        <Routes>
-          <Route element={<PrivateRoute userAuthentication={true} />}>
-            <Route path="/home" element={<Home />} />
-            <Route path="/movies" element={<Home />} />
-            <Route path="/tv" element={<TV />} />
-            <Route path="/genre/movies" element={<GenreMovie />} />
-            <Route path="/genre/tv" element={<GenreTv />} />
-            <Route path="/search" element={<Search />} />
-            <Route path="/movies/:category/:movieId" element={<Home />} />
-            <Route path="/tv/:category/:tvId" element={<TV />} />
-            <Route path="/genre/movies/:movieId" element={<GenreMovie />} />
-            <Route path="/genre/tv/:tvId" element={<GenreTv />} />
-            <Route path="/search/movies/:movieId" element={<Search />} />
-            <Route path="/search/tv/:tvId" element={<Search />} />
-            <Route path="/search?keyword=:keyword" element={<Search />} />
-          </Route>
+        <ProfileProvider>
+          <Header />
+          <Routes>
+            <Route element={<PrivateRoute userAuthentication={true} />}>
+              <Route path="/home" element={<Home />} />
+              <Route path="/movies" element={<Home />} />
+              <Route path="/tv" element={<TV />} />
+              <Route path="/genre/movies" element={<GenreMovie />} />
+              <Route path="/genre/tv" element={<GenreTv />} />
+              <Route path="/search" element={<Search />} />
+              <Route path="/movies/:category/:movieId" element={<Home />} />
+              <Route path="/tv/:category/:tvId" element={<TV />} />
+              <Route path="/genre/movies/:movieId" element={<GenreMovie />} />
+              <Route path="/genre/tv/:tvId" element={<GenreTv />} />
+              <Route path="/search/movies/:movieId" element={<Search />} />
+              <Route path="/search/tv/:tvId" element={<Search />} />
+              <Route path="/search?keyword=:keyword" element={<Search />} />
+              <Route path="/profil" element={<Profil />} />
+            </Route>
 
-          {/* Public routes without Header and Footer */}
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/" element={<Navigate to="/login" />} />
-        </Routes>
+            {/* Public routes without Header and Footer */}
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<Navigate to="/login" />} />
+          </Routes>
 
-        <Footer />
+          <Footer />
+        </ProfileProvider>
       </BrowserRouter>
     </>
   );

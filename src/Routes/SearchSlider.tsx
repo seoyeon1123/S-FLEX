@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useQuery } from 'react-query';
-import { getSearchs, ISearch, IGetSearchResult } from '../Api/Api';
+import { ISearch } from '../Api/Api';
 import { makeImagePath } from '../utils';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';

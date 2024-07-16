@@ -148,11 +148,6 @@ const Header = () => {
     setSearchOpen((prev) => !prev);
   };
 
-  const handleLogout = () => {
-    logout(); // 로그아웃 함수 호출
-    navigate('/');
-  };
-
   useMotionValueEvent(scrollY, 'change', () => {
     if (scrollY.get() > 80) {
       navAnimation.start('scroll');
@@ -162,7 +157,7 @@ const Header = () => {
   });
 
   const logoClick = () => {
-    navigate('/');
+    navigate('/movies');
   };
 
   const handleMouseEnter = () => setDropdownVisible(true);
@@ -246,7 +241,9 @@ const Header = () => {
               transition={{ type: 'linear' }}
             />
           </Search>
-          {isLoggedIn() && <button onClick={handleLogout}>Logout</button>}
+          <button>
+            <Link to="/profil">Profil</Link>
+          </button>
         </Col>
       </Nav>
     </>

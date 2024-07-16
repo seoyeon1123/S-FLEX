@@ -16,6 +16,7 @@ import {
   Message,
 } from '../styled/loginCss';
 import { LoginLogo } from 'Components/CategoryFont';
+import { useProfile } from 'Components/ProfileContext';
 
 export interface ILoginData {
   email: string;
@@ -28,17 +29,19 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<ILoginData>();
+  const { setProfil } = useProfile();
 
   const [message, setMessage] = useState<string>('');
   const navigate = useNavigate();
 
   const onSubmitLogin = async (data: ILoginData) => {
     try {
-      const userId = await loginUser(data);
+      const useProfil = await loginUser(data);
       setMessage('로그인 성공!');
 
-      if (userId) {
-        navigate(`/movies?id=${userId}`); // React Router의 useNavigate 훅을 사용하여 이동
+      if (useProfil) {
+        setProfil(useProfil);
+        navigate(`/movies`); // React Router의 useNavigate 훅을 사용하여 이동
       }
     } catch (error: any) {
       console.error('로그인 요청 실패:', error);

@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion';
-import Loading from './Loading/Loading';
 
 export const LoadingLogo = (
   <svg

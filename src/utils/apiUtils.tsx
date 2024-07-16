@@ -21,7 +21,6 @@ export const loginUser = async (data: ILoginData) => {
     if (token) {
       sessionStorage.setItem('token', token);
 
-      // Fetch user data to get _id
       try {
         const userDataResponse = await axios.get('http://localhost:3000/user', {
           headers: {
@@ -29,7 +28,7 @@ export const loginUser = async (data: ILoginData) => {
           },
         });
         const userData = userDataResponse.data.user;
-        return userData._id;
+        return userData;
       } catch (error) {
         console.error('Failed to fetch user data after login:', error);
         throw error;

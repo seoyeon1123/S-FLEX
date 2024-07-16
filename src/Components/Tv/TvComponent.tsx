@@ -128,17 +128,6 @@ const RunTime = styled.h4`
   top: -50px;
 `;
 
-const SeasonBox = styled.div`
-  position: absolute;
-  width: 40vw;
-  height: 80vh;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
-  background-color: ${(props) => props.theme.black.lighter};
-  top: -50px;
-`;
-
 const Type = styled.p`
   margin-top: 10px;
   background-color: #ff6060;
@@ -154,11 +143,10 @@ const TvComponent = () => {
   const tvId = bigTvMatch?.params.tvId;
   const category = bigTvMatch?.params.category;
 
-  const { data, isLoading } = useQuery('distinctTvs', getDistinctTvs);
+  const { data } = useQuery('distinctTvs', getDistinctTvs);
   const [videoData, setVideoData] = useState<IGetVideosResult>();
   const [selectedSeason, setSelectedSeason] = useState<ISeason | null>(null);
-  const [showSeasonModal, setShowSeasonModal] = useState(false); // State for modal visibility
-
+  const [showSeasonModal, setShowSeasonModal] = useState(false);
   const { data: tvDetail } = useQuery<IGetTvDetail>(['detail', tvId], () =>
     getTvDetail(tvId || '')
   );

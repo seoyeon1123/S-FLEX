@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ReactNode, Children } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { LoadingLogo } from '../CategoryFont';
 import { motion } from 'framer-motion';

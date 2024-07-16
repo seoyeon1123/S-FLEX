@@ -74,7 +74,7 @@ const GenreTv = () => {
     getGenreTv
   );
 
-  const { data: tvData, isLoading: tvDataLoading } = useQuery<IGetTvByGenre>(
+  const { data: tvData } = useQuery<IGetTvByGenre>(
     ['moviesByGenre', selectGenreId],
     () => getTvByGenre(selectGenreId!)
   );

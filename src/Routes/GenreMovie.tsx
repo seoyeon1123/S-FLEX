@@ -74,10 +74,10 @@ const Genre = () => {
     getGenreMovie
   );
 
-  const { data: moviesData, isLoading: moviesLoading } =
-    useQuery<IGetMovieByGenre>(['moviesByGenre', selectGenreId], () =>
-      getMoviesByGenre(selectGenreId!)
-    );
+  const { data: moviesData } = useQuery<IGetMovieByGenre>(
+    ['moviesByGenre', selectGenreId],
+    () => getMoviesByGenre(selectGenreId!)
+  );
 
   const handleGenreSelection = (genreId: number, genreName: string) => {
     setSelectGenreId(genreId);

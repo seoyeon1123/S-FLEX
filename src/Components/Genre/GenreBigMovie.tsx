@@ -7,7 +7,6 @@ import { motion, AnimatePresence, useScroll } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import Video from '../Video';
 import { makeImagePath } from '../../utils';
-import SliderGenre from './SliderGenre';
 
 interface IGetMovieGenre {
   id: number;

@@ -4,20 +4,11 @@ import styled from 'styled-components';
 import { makeImagePath } from '../utils';
 import Movie from '../Components/Movie/Movie';
 import Loading from '../Components/Loading/Loading';
-import { useParams } from 'react-router-dom';
 
 const Wrapper = styled.div`
   background-color: black;
   overflow-x: hidden;
   height: 100%;
-`;
-
-const Loader = styled.div`
-  height: 20vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
 `;
 
 const Banner = styled.div<{ bgPhoto: string }>`
@@ -47,7 +38,6 @@ const Overview = styled.p`
 `;
 
 const Home = () => {
-  const { id } = useParams<{ id: string }>();
   const { data, isLoading } = useQuery(
     ['movies', 'distinct'],
     getDistinctMovies

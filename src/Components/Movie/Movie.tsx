@@ -142,7 +142,7 @@ const Movie = () => {
   const movieId = bigMovieMatch?.params.movieId;
   const category = bigMovieMatch?.params.category;
 
-  const { data, isLoading } = useQuery('distinctMovies', getDistinctMovies);
+  const { data } = useQuery('distinctMovies', getDistinctMovies);
   const [videoData, setVideoData] = useState<IGetVideosResult>();
   const { data: movieDetail } = useQuery<IGetMovieDetail>(
     ['detail', movieId],
