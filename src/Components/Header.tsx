@@ -76,7 +76,7 @@ const Circle = styled(motion.span)`
 const Search = styled.form`
   color: white;
   display: flex;
-  margin-right: 10px;
+  //margin-right: 10px;
   align-items: center;
   position: relative;
 
@@ -123,6 +123,22 @@ const navVariants = {
     backgroundColor: 'rgba(0,0,0,1)',
   },
 };
+
+const Button = styled.button`
+  padding: 10px;
+  margin: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #e50914;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100%;
+  &:hover {
+    background-color: #ff3e46;
+  }
+`;
 
 interface IForm {
   keyword: string;
@@ -241,9 +257,9 @@ const Header = () => {
               transition={{ type: 'linear' }}
             />
           </Search>
-          <button>
-            <Link to="/profil">Profil</Link>
-          </button>
+          <Button>
+            <Link to="/profil">프로필</Link>
+          </Button>
         </Col>
       </Nav>
     </>

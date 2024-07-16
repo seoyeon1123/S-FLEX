@@ -24,6 +24,7 @@ import {
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
+  margin-bottom: 100px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -47,6 +48,7 @@ const ProfilBox = styled.div`
 const Title = styled.h1`
   font-size: 36px;
   margin-bottom: 30px;
+  margin-top: 30px;
 `;
 
 const ProfilImg = styled.div`
@@ -59,7 +61,7 @@ const ProfilIconContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
-  margin-top: 30px;
+  margin-top: 10px;
 `;
 
 const Icon = styled(FontAwesomeIcon)`
@@ -106,7 +108,7 @@ const LogoutButton = styled.button`
 `;
 
 const ProfileInfoContainer = styled.div`
-  margin-bottom: 100px;
+  margin-bottom: 60px;
 `;
 
 const ProfileInfo = styled.div`
@@ -143,7 +145,7 @@ const GenreList = styled.div<GenreListProps>`
   gap: 10px; /* 각 버튼 사이의 간격 조정 */
   width: 100%;
   position: absolute;
-  top: calc(100% + 10px);
+  top: calc(100%);
   left: 50%;
   transform: translateX(-50%);
   background-color: #222;
@@ -175,10 +177,11 @@ const GenreButton = styled.button`
 const Profil = () => {
   const { profil } = useProfile();
   const navigate = useNavigate();
-  const [selectedIcon, setSelectedIcon] = useState<IconProp | null>(
-    JSON.parse(localStorage.getItem('selectedIcon') || 'null')
-  );
-  const [myIcon, setMyIcon] = useState(false);
+  const [selectedIcon, setSelectedIcon] = useState<{
+    icon: IconProp;
+    color: string | undefined;
+  } | null>(JSON.parse(localStorage.getItem('selectedIcon') || 'null'));
+  const [myIcon, setMyIcon] = useState(!!selectedIcon);
   const [click, setClick] = useState(false);
   const [genre, setGenre] = useState<string>(
     localStorage.getItem('selectedGenre') || ''
@@ -193,8 +196,8 @@ const Profil = () => {
     setSelectedIcon(null);
   };
 
-  const handleIconClick = (icon: IconProp) => {
-    setSelectedIcon(icon);
+  const handleIconClick = (icon: IconProp, color: string | undefined) => {
+    setSelectedIcon({ icon, color });
     setMyIcon(true);
     setClick(false);
   };
@@ -217,20 +220,21 @@ const Profil = () => {
   };
 
   useEffect(() => {
-    sessionStorage.setItem('selectedIcon', JSON.stringify(selectedIcon));
+    localStorage.setItem('selectedIcon', JSON.stringify(selectedIcon));
   }, [selectedIcon]);
 
   useEffect(() => {
     const storedIcon = JSON.parse(
-      sessionStorage.getItem('selectedIcon') || 'null'
+      localStorage.getItem('selectedIcon') || 'null'
     );
     if (storedIcon) {
       setSelectedIcon(storedIcon);
+      setMyIcon(true);
     }
   }, []);
 
   useEffect(() => {
-    sessionStorage.setItem('selectedGenre', genre);
+    localStorage.setItem('selectedGenre', genre);
   }, [genre]);
 
   useEffect(() => {
@@ -245,80 +249,55 @@ const Profil = () => {
       <ProfilBox>
         <ProfilImg>
           <Title>나의 프로필</Title>
-          {myIcon === true ? (
-            <div>
-              {selectedIcon && (
-                <CustomIcon
-                  icon={selectedIcon}
-                  color={
-                    selectedIcon === faUser
-                      ? 'red'
-                      : selectedIcon === faUserCircle
-                      ? 'orange'
-                      : selectedIcon === faStar
-                      ? 'yellow'
-                      : selectedIcon === faHeart
-                      ? 'green'
-                      : selectedIcon === faFilm
-                      ? 'blue'
-                      : selectedIcon === faTv
-                      ? 'purple'
-                      : selectedIcon === faGamepad
-                      ? 'pink'
-                      : selectedIcon === faMusic
-                      ? 'brown'
-                      : undefined
-                  }
-                />
-              )}
-            </div>
-          ) : null}
-          {click === false || myIcon === true ? (
+          {myIcon && selectedIcon && (
+            <CustomIcon icon={selectedIcon.icon} color={selectedIcon.color} />
+          )}
+          {(!click || myIcon) && (
             <EditImageButton onClick={handleEditImageClick}>
               이미지 수정
             </EditImageButton>
-          ) : null}
+          )}
           {click && (
             <ProfilIconContainer>
               <Icon
                 icon={faUser}
                 color="red"
-                onClick={() => handleIconClick(faUser)}
+                onClick={() => handleIconClick(faUser, 'red')}
               />
               <Icon
                 icon={faUserCircle}
                 color="orange"
-                onClick={() => handleIconClick(faUserCircle)}
+                onClick={() => handleIconClick(faUserCircle, 'orange')}
               />
               <Icon
                 icon={faStar}
                 color="yellow"
-                onClick={() => handleIconClick(faStar)}
+                onClick={() => handleIconClick(faStar, 'yellow')}
               />
               <Icon
                 icon={faHeart}
                 color="green"
-                onClick={() => handleIconClick(faHeart)}
+                onClick={() => handleIconClick(faHeart, 'green')}
               />
               <Icon
                 icon={faFilm}
                 color="blue"
-                onClick={() => handleIconClick(faFilm)}
+                onClick={() => handleIconClick(faFilm, 'blue')}
               />
               <Icon
                 icon={faTv}
                 color="purple"
-                onClick={() => handleIconClick(faTv)}
+                onClick={() => handleIconClick(faTv, 'purple')}
               />
               <Icon
                 icon={faGamepad}
                 color="pink"
-                onClick={() => handleIconClick(faGamepad)}
+                onClick={() => handleIconClick(faGamepad, 'pink')}
               />
               <Icon
                 icon={faMusic}
                 color="brown"
-                onClick={() => handleIconClick(faMusic)}
+                onClick={() => handleIconClick(faMusic, 'brown')}
               />
             </ProfilIconContainer>
           )}
