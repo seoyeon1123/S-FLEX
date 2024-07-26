@@ -15,8 +15,8 @@ import {
   SignUpMessage,
   Message,
 } from '../styled/loginCss';
-import { LoginLogo } from 'Components/CategoryFont';
-import { useProfile } from 'Components/ProfileContext';
+import { LoginLogo } from 'components/CategoryFont';
+import { useProfile } from 'components/ProfileContext';
 
 export interface ILoginData {
   email: string;

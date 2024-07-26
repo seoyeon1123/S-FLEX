@@ -2,15 +2,15 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Home from './Routes/Home';
 import TV from './Routes/TV';
 import Search from './Routes/Search';
-import Header from './Components/Header';
+import Header from './components/Header';
 import GenreMovie from './Routes/GenreMovie';
 import GenreTv from './Routes/GenreTv';
-import Footer from './Components/Footer';
+import Footer from './components/Footer';
 import PrivateRoute from 'utils/PrivateRoute';
 import Login from 'Routes/login';
 import Signup from 'Routes/signup';
-import { ProfileProvider } from 'Components/ProfileContext';
-import Profil from 'Components/profil';
+import { ProfileProvider } from 'components/ProfileContext';
+import Profil from 'components/profil';
 
 const App = () => {
   return (

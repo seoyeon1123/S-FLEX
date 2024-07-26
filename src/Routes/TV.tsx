@@ -2,8 +2,8 @@ import { useQuery } from 'react-query';
 import { getDistinctTvs } from '../Api/TvApi';
 import styled from 'styled-components';
 import { makeImagePath } from '../utils';
-import TvComponent from '../Components/Tv/TvComponent';
-import Loading from '../Components/Loading/Loading';
+import TvComponent from '../components/Tv/TvComponent';
+import Loading from '../components/Loading/Loading';
 
 const Wrapper = styled.div`
   background-color: black;

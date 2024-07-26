@@ -15,7 +15,7 @@ import {
   ButtonAuth,
   Message,
 } from '../styled/loginCss';
-import { LoginLogo } from 'Components/CategoryFont';
+import { LoginLogo } from 'components/CategoryFont';
 
 interface IData {
   name: string;

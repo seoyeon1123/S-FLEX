@@ -11,7 +11,6 @@ import {
 import { useForm } from 'react-hook-form';
 import { SFlexLogo } from './CategoryFont';
 import DropdownMenu from '../Routes/DropdownMenu'; // Import the DropdownMenu
-import { isLoggedIn, logout } from 'utils/authUtils';
 
 const Nav = styled(motion.nav)`
   display: flex;

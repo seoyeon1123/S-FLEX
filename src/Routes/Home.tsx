@@ -2,8 +2,8 @@ import { useQuery } from 'react-query';
 import { getDistinctMovies } from '../Api/MovieApi';
 import styled from 'styled-components';
 import { makeImagePath } from '../utils';
-import Movie from '../Components/Movie/Movie';
-import Loading from '../Components/Loading/Loading';
+import Movie from '../components/Movie/Movie';
+import Loading from '../components/Loading/Loading';
 
 const Wrapper = styled.div`
   background-color: black;

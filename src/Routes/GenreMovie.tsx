@@ -7,7 +7,7 @@ import {
   getGenreMovie,
   getMoviesByGenre,
 } from '../Api/GenreApi';
-import SliderGenre from '../Components/Genre/SliderGenre';
+import SliderGenre from '../components/Genre/SliderGenre';
 import { motion } from 'framer-motion';
 
 const Container = styled.div`

@@ -10,9 +10,9 @@ import {
 import { makeImagePath } from '../utils';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-import Video from '../Components/Video';
+import Video from '../components/Video';
 import SearchSlider from './SearchSlider';
-import Loading from '../Components/Loading/Loading';
+import Loading from '../components/Loading/Loading';
 
 const Wrapper = styled.div`
   margin-top: 150px;

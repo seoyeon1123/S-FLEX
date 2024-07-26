@@ -7,7 +7,7 @@ import {
   getGenreTv,
   getTvByGenre,
 } from '../Api/GenreApi';
-import SliderGenreTv from '../Components/Genre/SliderGenreTv';
+import SliderGenreTv from '../components/Genre/SliderGenreTv';
 import { AnimatePresence, motion } from 'framer-motion';
 
 const Container = styled.div`
