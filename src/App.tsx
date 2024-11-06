@@ -6,7 +6,6 @@ import Header from './components/Header';
 import GenreMovie from './Routes/GenreMovie';
 import GenreTv from './Routes/GenreTv';
 import Footer from './components/Footer';
-import PrivateRoute from 'utils/PrivateRoute';
 import Login from 'Routes/login';
 import Signup from 'Routes/signup';
 import { ProfileProvider } from 'components/ProfileContext';
@@ -19,7 +18,7 @@ const App = () => {
         <ProfileProvider>
           <Header />
           <Routes>
-            <Route element={<PrivateRoute userAuthentication={true} />}>
+            <Route>
               <Route path="/home" element={<Home />} />
               <Route path="/movies" element={<Home />} />
               <Route path="/tv" element={<TV />} />
@@ -36,10 +35,9 @@ const App = () => {
               <Route path="/profil" element={<Profil />} />
             </Route>
 
-            {/* Public routes without Header and Footer */}
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/" element={<Navigate to="/login" />} />
+            <Route path="/" element={<Navigate to="/home" />} />
           </Routes>
 
           <Footer />
