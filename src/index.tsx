@@ -6,7 +6,7 @@ import { createGlobalStyle } from 'styled-components';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './theme';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import MainLoading from './components/Loading/MainLoading';
+import MainLoading from 'components/Loading/MainLoading';
 
 export const GlobalStyle = createGlobalStyle`
  @import url('https://fonts.googleapis.com/css2?family=Hi+Melody&display=swap');

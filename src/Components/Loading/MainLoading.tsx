@@ -26,7 +26,7 @@ const LogoVariants = {
 };
 
 type LoadingProps = {
-  children: React.ReactNode; // children 속성은 JSX의 특성으로, React.ReactNode으로 타입을 지정합니다.
+  children: React.ReactNode;
 };
 
 const MainLoading = ({ children }: LoadingProps) => {
